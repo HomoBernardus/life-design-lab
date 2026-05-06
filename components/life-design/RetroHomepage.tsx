@@ -321,6 +321,7 @@ function FlowerGarden() {
   const [stages, setStages] = useState<number[]>([0, 0, 1, 0, 0]);
   const [sparkles, setSparkles] = useState<{ id: number; x: number; y: number }[]>([]);
   const [swayKey, setSwayKey] = useState(0);
+  const [showClickMe, setShowClickMe] = useState(true);
   const sparkleId = useRef(0);
 
   // Butterfly animation state
@@ -352,6 +353,10 @@ function FlowerGarden() {
   }, []);
 
   const handleClick = useCallback(() => {
+    if (showClickMe) {
+      setShowClickMe(false);
+    }
+
     const allGrownNow = stages.every((s) => s >= MAX_STAGE);
 
     if (allGrownNow) {
@@ -378,10 +383,20 @@ function FlowerGarden() {
     setTimeout(() => {
       setSparkles((prev) => prev.filter((s) => s.id !== id));
     }, 600);
-  }, [stages]);
+  }, [stages, showClickMe]);
 
   return (
     <div className="relative cursor-pointer select-none" onClick={handleClick} title="点击让花朵生长">
+      {showClickMe && (
+        <div
+          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+          style={{ fontFamily: "'VT323', 'Courier New', monospace" }}
+        >
+          <span className="text-[#1a1a1a] text-lg sm:text-xl font-bold bg-[#f5f5f0]/80 px-3 py-1 border-2 border-dashed border-[#1a1a1a] rounded animate-pulse">
+            click me
+          </span>
+        </div>
+      )}
       <svg
         viewBox="0 0 220 150"
         className="w-full max-w-[240px] h-auto"
