@@ -50,6 +50,10 @@ const GAUGE_R = 88; // outer arc radius
 const GAUGE_W = 220;
 const GAUGE_H = 140;
 
+function roundCoord(n: number): number {
+  return Math.round(n * 1e6) / 1e6;
+}
+
 function gaugeAngle(value: number): number {
   // arc runs from π (left) to 2π (right) along the bottom
   return Math.PI + (value / 10) * Math.PI;
@@ -58,8 +62,8 @@ function gaugeAngle(value: number): number {
 function gaugePoint(value: number): { x: number; y: number } {
   const a = gaugeAngle(value);
   return {
-    x: GAUGE_CX + GAUGE_R * Math.cos(a),
-    y: GAUGE_CY + GAUGE_R * Math.sin(a),
+    x: roundCoord(GAUGE_CX + GAUGE_R * Math.cos(a)),
+    y: roundCoord(GAUGE_CY + GAUGE_R * Math.sin(a)),
   };
 }
 
@@ -134,8 +138,8 @@ function SemicircularGauge({
   // Needle: thick line from center to arc point
   const nLen = GAUGE_R - 10;
   const needleAngle = gaugeAngle(value);
-  const needleX = GAUGE_CX + nLen * Math.cos(needleAngle);
-  const needleY = GAUGE_CY + nLen * Math.sin(needleAngle);
+  const needleX = roundCoord(GAUGE_CX + nLen * Math.cos(needleAngle));
+  const needleY = roundCoord(GAUGE_CY + nLen * Math.sin(needleAngle));
 
   return (
     <svg
@@ -171,10 +175,10 @@ function SemicircularGauge({
         const a = gaugeAngle(i);
         const major = i % 5 === 0;
         const innerR = GAUGE_R - (major ? 18 : 12);
-        const x1 = GAUGE_CX + innerR * Math.cos(a);
-        const y1 = GAUGE_CY + innerR * Math.sin(a);
-        const x2 = GAUGE_CX + (GAUGE_R + 1) * Math.cos(a);
-        const y2 = GAUGE_CY + (GAUGE_R + 1) * Math.sin(a);
+        const x1 = roundCoord(GAUGE_CX + innerR * Math.cos(a));
+        const y1 = roundCoord(GAUGE_CY + innerR * Math.sin(a));
+        const x2 = roundCoord(GAUGE_CX + (GAUGE_R + 1) * Math.cos(a));
+        const y2 = roundCoord(GAUGE_CY + (GAUGE_R + 1) * Math.sin(a));
         return (
           <line
             key={i}
@@ -188,8 +192,8 @@ function SemicircularGauge({
       {/* Tick labels */}
       {[0, 2, 4, 6, 8, 10].map((i) => {
         const a = gaugeAngle(i);
-        const lx = GAUGE_CX + (GAUGE_R + 20) * Math.cos(a);
-        const ly = GAUGE_CY + (GAUGE_R + 20) * Math.sin(a);
+        const lx = roundCoord(GAUGE_CX + (GAUGE_R + 20) * Math.cos(a));
+        const ly = roundCoord(GAUGE_CY + (GAUGE_R + 20) * Math.sin(a));
         return (
           <text
             key={i}
@@ -261,7 +265,7 @@ const AXES = [
 
 function getRadarPoint(angle: number, level: number) {
   const r = (RADAR_R * level) / 10;
-  return { x: RADAR_CX + r * Math.cos(angle), y: RADAR_CY + r * Math.sin(angle) };
+  return { x: roundCoord(RADAR_CX + r * Math.cos(angle)), y: roundCoord(RADAR_CY + r * Math.sin(angle)) };
 }
 
 function RadarChart({ data }: { data: DashboardData }) {

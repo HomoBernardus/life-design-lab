@@ -10,9 +10,10 @@ interface RetroLayoutProps {
   backHref?: string;
   /** Show scrollable content area — set false for short pages that shouldn't scroll */
   scrollable?: boolean;
+  actions?: React.ReactNode;
 }
 
-export function RetroLayout({ children, title, backHref, scrollable = false }: RetroLayoutProps) {
+export function RetroLayout({ children, title, backHref, scrollable = false, actions }: RetroLayoutProps) {
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -68,7 +69,8 @@ export function RetroLayout({ children, title, backHref, scrollable = false }: R
               )}
               <span className="text-sm tracking-[0.12em]">{title}</span>
             </div>
-            <div className="flex gap-1.5">
+            <div className="flex items-center gap-1.5">
+              {actions}
               <span className="block w-3.5 h-3.5 bg-[#555] border border-[#3a3a3a]" />
               <span className="block w-3.5 h-3.5 bg-[#555] border border-[#3a3a3a]" />
               <span className="block w-3.5 h-3.5 bg-[#555] border border-[#3a3a3a]" />

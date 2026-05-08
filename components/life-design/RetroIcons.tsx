@@ -416,3 +416,28 @@ export function IconPixelUndo({ className, size = 24 }: IconProps) {
     </svg>
   );
 }
+
+export function IconQuestion({ className, size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      {/* Top horizontal bar — wide */}
+      <rect x="7" y="3" width="10" height="2" fill="currentColor" />
+      {/* Left vertical — 3 blocks (y=5 to y=11) */}
+      <rect x="5" y="5" width="2" height="2" fill="currentColor" />
+      <rect x="5" y="7" width="2" height="2" fill="currentColor" />
+      <rect x="5" y="9" width="2" height="2" fill="currentColor" />
+      {/* Right vertical — 2 blocks then curves inward */}
+      <rect x="17" y="5" width="2" height="2" fill="currentColor" />
+      <rect x="17" y="7" width="2" height="2" fill="currentColor" />
+      <rect x="15" y="9" width="4" height="2" fill="currentColor" />
+      {/* Curve bottom — connects left side inward */}
+      <rect x="5" y="11" width="12" height="2" fill="currentColor" />
+      {/* Stem — 3 blocks descending from inner curve */}
+      <rect x="10" y="13" width="5" height="2" fill="currentColor" />
+      <rect x="10" y="15" width="5" height="2" fill="currentColor" />
+      <rect x="10" y="17" width="5" height="2" fill="currentColor" />
+      {/* Dot */}
+      <rect x="9" y="21" width="6" height="2" fill="currentColor" />
+    </svg>
+  );
+}

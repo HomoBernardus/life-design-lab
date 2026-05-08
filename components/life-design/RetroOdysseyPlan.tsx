@@ -155,6 +155,7 @@ function Tabs({ options, active, onChange }: { options: { key: string; label: st
         <button
           key={opt.key}
           onClick={() => onChange(opt.key)}
+          suppressHydrationWarning
           className={`px-4 py-1.5 text-sm font-bold tracking-[0.06em] transition-colors ${
             i > 0 ? "border-l-2 border-[#1a1a1a]" : ""
           } ${

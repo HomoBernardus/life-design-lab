@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { RetroLayout } from "./RetroLayout";
-import { IconSparkles } from "./RetroIcons";
+import { IconSparkles, IconQuestion } from "./RetroIcons";
+import { GuideModal } from "./GuideModal";
 
 const BUTTONS = [
   { label: "Life Dashboard", href: "/dashboard", color: "#95a9bb" },
@@ -452,8 +453,22 @@ function FlowerGarden() {
    ──────────────────────────────────────────── */
 
 export function RetroHomepage() {
+  const [guideOpen, setGuideOpen] = useState(false);
+
+  const actions = (
+    <button
+      onClick={() => setGuideOpen(true)}
+      className="hover:text-white transition-colors"
+      title="使用指南 & Q&A"
+      aria-label="打开使用指南"
+    >
+      <IconQuestion size={16} className="text-[#aaa]" />
+    </button>
+  );
+
   return (
-    <RetroLayout title="Life Blueprint">
+    <>
+    <RetroLayout title="Life Blueprint" actions={actions}>
       {/* ── Title ── */}
       <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3">
@@ -506,5 +521,7 @@ export function RetroHomepage() {
         ))}
       </div>
     </RetroLayout>
+    <GuideModal open={guideOpen} onOpenChange={setGuideOpen} />
+    </>
   );
 }
